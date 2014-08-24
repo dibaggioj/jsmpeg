@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta name="viewport" content="width=320, initial-scale=1"/>
-	<title>jsmpeg streaming</title>
+	<title>gigabots jsmpeg streaming</title>
 	<style type="text/css">
 		body {
 			background: #333;
@@ -31,6 +31,8 @@
 		</p>
 	</canvas>
 	<script type="text/javascript" src="jsmpg.js"></script>
+	<script data-main="js/main" type="text/javascript" src="js/require.js"></script>
+	<script src="js/jquery.min.js"></script>
 	<script type="text/javascript">
 		// Show loading notice
 		var canvas = document.getElementById('videoCanvas');
@@ -39,8 +41,45 @@
 		ctx.fillText('Loading...', canvas.width/2-30, canvas.height/3);
 
 		// Setup the WebSocket connection and start the player
-		var client = new WebSocket( 'ws://thegigabots.app.bigbang.io:80/' );
-		var player = new jsmpeg(client, {canvas:canvas});
+
+		require.config({
+	    baseUrl: 'js',
+	    paths: {
+	        "BrowserBigBangClient": "http://thegigabots.app.bigbang.io/client/js/bbclient.min",
+	        "BigBangClient": "http://thegigabots.app.bigbang.io/client/js/bbclient.min",
+	        "PewRuntime": "http://thegigabots.app.bigbang.io/client/js/bbclient.min"
+	    }
+		});
+		require(['BrowserBigBangClient', 'PewRuntime'], function (bigbang, pew) {
+
+		    client = new bigbang.client.BrowserBigBangClient();
+		    client.connectAnonymous("thegigabots.app.bigbang.io:80", function(result) {
+		        if( result.success) {
+		            client.subscribe("newBot", function( err, c) {
+		                if(!err) {
+		                    beginStream(client,c);
+		                    //console.dir(c);
+		                }
+		                else {
+		                    console.log("Subscribe failure. " + err);
+		                }
+		            })
+		        }
+		        else {
+		            console.log("CONNECT FAILURE.");
+		        }
+		    });
+
+		    function beginStream(client, channel) {
+
+			    //var client = new WebSocket( 'ws://thegigabots.app.bigbang.io:80/' );
+				var player = new jsmpeg(client, {canvas:canvas});
+
+			}
+
+		});
+
+
 	</script>
 </body>
 </html>

@@ -75,7 +75,7 @@ console.log('Awaiting WebSocket connections on ws://127.0.0.1:'+WEBSOCKET_PORT+'
 /*
 on raspberrypi, run:
 
-node /home/pi/dist/node/stream-server.js
+node /home/pi/dist/node/stream-server.js johnpi
 
 then
 
