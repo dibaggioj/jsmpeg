@@ -111,17 +111,22 @@ var streamServer = require('http').createServer( function(request, response) {
 	}
 }).listen(STREAM_PORT);
 
-console.log('Listening for MPEG Stream on http://127.0.0.1:'+STREAM_PORT+'/<secret>/<width>/<height>');
+console.log('Listening for MPEG Stream on http://127.0.0.1:'+STREAM_PORT+'/'+STREAM_SECRET+'/'+width+'/'+height);
 //console.log('Awaiting WebSocket connections on ws://'+socketServer+':'+WEBSOCKET_PORT+'/');
 
 /*
 on raspberrypi, run:
 
-node /home/pi/dist/node/stream-server.js johnpi
+sudo node /home/pi/dist/node/stream-server.js johnpi
 
 then:
 
 ffmpeg -s 320x240 -f video4linux2 -i /dev/video4 -f mpeg1video \ -b 800k -r 30 http://192.168.1.108:8082/johnpi/320/240/
+
+or?:
+
+ffmpeg -s 320x240 -f video4linux2 -i /dev/video4 -f mpeg1video \ -b 800k -r 30 http://127.0.0.1:8082/johnpi/320/240/
+
 
 */
 
