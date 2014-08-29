@@ -111,7 +111,7 @@ var streamServer = require('http').createServer( function(request, response) {
 	}
 }).listen(STREAM_PORT);
 
-console.log('Listening for MPEG Stream on http://127.0.0.1:'+STREAM_PORT+'/'+STREAM_SECRET+'/'+width+'/'+height);
+console.log('Listening for MPEG Stream on http://127.0.0.1:'+STREAM_PORT+'/'+STREAM_SECRET+'/'+width+'/'+height+'/');
 //console.log('Awaiting WebSocket connections on ws://'+socketServer+':'+WEBSOCKET_PORT+'/');
 
 /*

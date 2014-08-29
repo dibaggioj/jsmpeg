@@ -1,3 +1,4 @@
+// Show loading notice
 var canvas = document.getElementById('videoCanvas');
 var ctx = canvas.getContext('2d');
 ctx.fillStyle = '#444';
@@ -37,7 +38,7 @@ require(['BrowserBigBangClient', 'PewRuntime'], function (bigbang, pew) {
 
 	    //var client = new WebSocket( 'ws://thegigabots.app.bigbang.io:80/' );
 		var player = new jsmpeg(client, {canvas:canvas});
-
+		console.dir(player);
 	}
 
 });
