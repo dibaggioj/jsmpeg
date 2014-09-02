@@ -2,7 +2,7 @@
 if( process.argv.length < 3 ) {
 	console.log(
 		'Usage: \n' +
-		'node stream-server.js <secret> [<stream-port> <websocket-port>]'
+		'node stream-server.js johnpi [<stream-port> <websocket-port>]'
 	);
 	process.exit();
 }
