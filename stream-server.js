@@ -2,6 +2,7 @@
 if( process.argv.length < 3 ) {
 	console.log(
 		'Usage: \n' +
+		//'node stream-server.js <secret> [<stream-port> <websocket-port>]'
 		'node stream-server.js johnpi [<stream-port> <websocket-port>]'
 	);
 	process.exit();
@@ -16,7 +17,9 @@ var width = 320,
 	height = 240;
 
 // Websocket Server
-var socketServer = new (require('ws').Server)({port: WEBSOCKET_PORT});
+var WebSocketServer = require('ws').Server;
+var socketServer = new WebSocketServer({port: WEBSOCKET_PORT});
+//var socketServer = new (require('ws').Server)({port: WEBSOCKET_PORT});
 socketServer.on('connection', function(socket) {
 	// Send magic bytes and video size to the newly connected socket
 	// struct { char magic[4]; unsigned short width, height;}
@@ -45,8 +48,10 @@ socketServer.broadcast = function(data, opts) {
 };
 
 
-// HTTP Server to accept incomming MPEG Stream
-var streamServer = require('http').createServer( function(request, response) {
+// HTTP Server to accept incoming MPEG Stream
+var http = require('http');
+var streamServer = http.createServer( function( request, response ) {
+//var streamServer = require('http').createServer( function(request, response) {
 	var params = request.url.substr(1).split('/');
 	width = (params[1] || 320)|0;
 	height = (params[2] || 240)|0;
